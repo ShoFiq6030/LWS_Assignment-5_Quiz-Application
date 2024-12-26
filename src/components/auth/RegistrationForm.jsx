@@ -9,6 +9,7 @@ function RegistrationForm() {
     email: "",
     password: "",
     confirmPassword: "",
+    role: "user",
   });
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -20,17 +21,26 @@ function RegistrationForm() {
       email: "",
       password: "",
       confirmPassword: "",
+      role: "user",
     });
     setError(null);
   };
   const handleChange = (e) => {
-    clearForm();
-    setNewUser({ ...newUser, [e.target.name]: e.target.value });
+    setError(null);
+    setNewUser((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+  const handleCheckboxChange = (e) => {
+    setNewUser((prev) => ({
+      ...prev,
+      role: e.target.checked ? "admin" : "user",
+    }));
   };
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
 
     // Reset errors
     setError(null);
@@ -47,10 +57,9 @@ function RegistrationForm() {
     if (newUser.password.length < 8) {
       errors.password = "Password must be at least 8 characters long";
     }
-    if (!newUser.confirmPassword)
+    if (!newUser.confirmPassword) {
       errors.confirmPassword = "Confirm Password is required";
-
-    if (newUser.password !== newUser.confirmPassword) {
+    } else if (newUser.password !== newUser.confirmPassword) {
       errors.confirmPassword = "Passwords do not match";
     }
 
@@ -60,15 +69,13 @@ function RegistrationForm() {
       return;
     }
 
+    setLoading(true);
+
     // If validation passes, make the API call
     try {
       console.log("Submitting user:", newUser);
 
       // Make the API call
-      //   const response = await axios.post(
-      //     `${import.meta.env.VITE_SERVER_URL}/api/th/register`,
-      //     newUser
-      //   );
 
       const response = await toast.promise(
         axios.post(
@@ -81,10 +88,11 @@ function RegistrationForm() {
           error: "Registration failed 😢",
         }
       );
+      console.log(response.data);
 
       setLoading(false);
       clearForm(); // Clear the form after successful registration
-      //   navigate("/login"); // Redirect to login page
+      navigate("/login"); // Redirect to login page
     } catch (err) {
       setLoading(false);
       console.error("Error during registration:", err);
@@ -182,7 +190,9 @@ function RegistrationForm() {
         <input
           type="checkbox"
           id="admin"
+          name="admin"
           className="px-4 py-3 rounded-lg border border-gray-300"
+          onChange={handleCheckboxChange}
         />
         <label htmlFor="admin" className="block ">
           Register as Admin
@@ -195,7 +205,7 @@ function RegistrationForm() {
       <button
         disabled={loading}
         type="submit"
-        className={`w-full bg-primary text-white py-3 rounded-lg mb-2 ${
+        className={`w-full text-white py-3 rounded-lg mb-2 ${
           loading ? "bg-gray-500" : "bg-primary"
         }`}
       >

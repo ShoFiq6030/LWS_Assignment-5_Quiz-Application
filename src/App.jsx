@@ -9,17 +9,20 @@ import Dashboard from "./Pages/ForAdmin/DashboardPage";
 import QuizSetPage from "./Pages/ForAdmin/QuizSetPage";
 import QuizSetEntryPage from "./Pages/ForAdmin/QuizSetEntryPage";
 import NoFoundPage from "./Pages/NoFoundPage";
+import PrivateRoutes from "./routes/PrivateRoutes";
 
 function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route element={<PrivateRoutes />}>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/quiz_page" element={<QuizPage />} />
+          <Route path="/result" element={<ResultPage />} />
+          <Route path="/leaderboard" element={<LeaderboardPage />} />
+        </Route>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/registration" element={<RegistrationPage />} />
-        <Route path="/quiz_page" element={<QuizPage />} />
-        <Route path="/result" element={<ResultPage />} />
-        <Route path="/leaderboard" element={<LeaderboardPage />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/quiz_set_page" element={<QuizSetPage />} />
         <Route path="/quiz_set_entry_page" element={<QuizSetEntryPage />} />
