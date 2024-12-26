@@ -3,14 +3,14 @@ import { useNavigate } from "react-router-dom";
 
 function QuizCard({ quiz }) {
   const { id, title, description, thumbnail, status, is_attempted } = quiz;
-  console.log(quiz);
+
   const navigate = useNavigate();
 
   const handleClick = () => {
-    if (!is_attempted ) {
+    if (!is_attempted) {
       navigate(`/quiz_page/${id}`); // Navigate to the quiz page with the quiz ID
-    }else{
-        navigate(`/leaderboard/${id}`); // Navigate to the leaderboard page with the quiz ID
+    } else {
+      navigate(`/leaderboard/${id}`); // Navigate to the leaderboard page with the quiz ID
     }
   };
 

@@ -5,7 +5,7 @@ import { useAuth } from "./useAuth";
 
 export const useApi = () => {
     const { auth, setAuth } = useAuth();
-    console.log(auth);
+
     useEffect(() => {
         // Add a request interceptor
         const requestIntercept = api.interceptors.request.use(

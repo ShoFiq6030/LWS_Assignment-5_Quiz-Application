@@ -9,21 +9,18 @@ import { useQuiz } from "../hooks/useQuiz";
 
 function HomePage() {
   const { auth } = useAuth();
-  const {api } = useApi();
+  const { api } = useApi();
   const { setQuizzes } = useQuiz();
 
-
   useEffect(() => {
-      const getQuizzes = async () => {
-        const response = await api.get(
-          `${import.meta.env.VITE_SERVER_URL}/api/quizzes`
-        );
-        console.log(response);
-      
-        await setQuizzes(response.data.data);
-      };
-      getQuizzes();
-    }, []);
+    const getQuizzes = async () => {
+      const response = await api.get(
+        `${import.meta.env.VITE_SERVER_URL}/api/quizzes`
+      );
+      setQuizzes(response.data.data);
+    };
+    getQuizzes();
+  }, []);
 
   return (
     <>
