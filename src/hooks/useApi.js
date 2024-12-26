@@ -3,8 +3,9 @@ import axios from 'axios';
 import { api } from "../api";
 import { useAuth } from "./useAuth";
 
-const useApi = () => {
+export const useApi = () => {
     const { auth, setAuth } = useAuth();
+    console.log(auth);
     useEffect(() => {
         // Add a request interceptor
         const requestIntercept = api.interceptors.request.use(
@@ -32,9 +33,10 @@ const useApi = () => {
                     try {
                         const refreshToken = auth?.refreshToken;
                         const response = await axios.post(
-                            `${import.meta.env.VITE_BASE_URL}/api/auth/refresh-token`,
+                            `${import.meta.env.VITE_SERVER_URL}/api/auth/refresh-token`,
                             { refreshToken }
                         );
+                        console.log(response);
                         const { token } = response.data;
 
                         console.log(`New Token: ${token}`);

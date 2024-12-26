@@ -1,7 +1,9 @@
 import React from "react";
 import { useAuth } from "../hooks/useAuth";
 import { Navigate, Outlet } from "react-router-dom";
-import Header from './../components/common/Header';
+import Header from "./../components/common/Header";
+import QuizProvider from "../provider/QuizProvider";
+import Footer from "../components/common/Footer";
 
 function PrivateRoutes() {
   const { auth } = useAuth();
@@ -10,11 +12,11 @@ function PrivateRoutes() {
       {auth.user ? (
         <div className="bg-[#F5F3FF] min-h-screen">
           <div className="container mx-auto py-3">
-            <Header />
-            <Outlet />
-            <footer className="mt-6 mb-3 opacity-40 text-center">
-              Copyright & copy; 2024 Learn With Sumit | All Rights Reserved
-            </footer>
+            <QuizProvider>
+              <Header />
+              <Outlet />
+              <Footer />
+            </QuizProvider>
           </div>
         </div>
       ) : (
