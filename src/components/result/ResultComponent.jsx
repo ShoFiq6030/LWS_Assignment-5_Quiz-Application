@@ -7,7 +7,7 @@ function ResultComponent({ result, questions,quiz }) {
   const correct_answers = result?.correct_answers;
 
   const userCorrectAnswers = correct_answers?.filter((correctAnswer) => {
-    const submittedAnswer = submitted_answers.find(
+    const submittedAnswer = submitted_answers?.find(
       (sa) => sa.question_id === correctAnswer.question_id
     );
     return submittedAnswer && correctAnswer.answer === submittedAnswer.answer;

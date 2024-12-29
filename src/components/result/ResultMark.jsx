@@ -4,14 +4,13 @@ import { CircularProgressbar } from "react-circular-progressbar";
 import { Link } from "react-router-dom";
 
 function ResultMark({ result, userCorrectAnswers, questions,quiz }) {
-  let percentage = result.percentage;
-  console.log(quiz);
+  let percentage = result?.percentage;
+  
 
-  const userMarks = userCorrectAnswers
-    .map((ans) => ans.mark)
-    .reduce((total, currentValue) => {
+  const userMarks = userCorrectAnswers?.map((ans) => ans?.marks)?.reduce((total, currentValue) => {
       return total + currentValue;
     }, 0);
+   
   return (
     <>
       <img src={logo} alt="logo" className="max-h-11 fixed left-6 top-6 z-50" />
