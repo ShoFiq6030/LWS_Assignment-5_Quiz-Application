@@ -1,23 +1,22 @@
-import React, { useEffect } from "react";
-
+import React, { useEffect, useState } from "react";
 import avatar from "../assets/avater.webp";
-
 import { useAuth } from "./../hooks/useAuth";
-import Quiz from "../components/quiz/Quiz";
 import { useApi } from "../hooks/useApi";
-import { useQuiz } from "../hooks/useQuiz";
+
+import QuizSets from "../components/quiz/QuizSets";
 
 function HomePage() {
+  const [quizSets, setQuizSets] = useState(null);
   const { auth } = useAuth();
   const { api } = useApi();
-  const { setQuizzes } = useQuiz();
+ 
 
   useEffect(() => {
     const getQuizzes = async () => {
       const response = await api.get(
         `${import.meta.env.VITE_SERVER_URL}/api/quizzes`
       );
-      setQuizzes(response.data.data);
+      setQuizSets(response.data.data);
     };
     getQuizzes();
   }, []);
@@ -38,7 +37,7 @@ function HomePage() {
           {auth.user.full_name}
         </h2>
       </div>
-      <Quiz />
+      <QuizSets quizSets={quizSets} />
     </>
   );
 }

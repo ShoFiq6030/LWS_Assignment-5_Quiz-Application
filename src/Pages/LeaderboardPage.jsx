@@ -1,29 +1,35 @@
-import React from "react";
+import React, { useEffect } from "react";
 import logo from "../assets/logo.svg";
 import avatar from "../assets/avater.webp";
+import { useParams } from "react-router-dom";
+import { useState } from "react";
+import { useApi } from "../hooks/useApi";
 
 function LeaderboardPage() {
+  const [leaderBoardData, setLeaderBoardData] = useState();
+  const { id } = useParams();
+  const {api} = useApi();
+
+  useEffect(() => {
+    const getLeaderBoardData = async () => {
+      try {
+        const response = await api.get(
+          `${import.meta.env.VITE_SERVER_URL}/api/quizzes/${id}/attempts`
+        );
+
+        console.log(response);
+        if (response.status === 200) {
+          // setLeaderBoardData(response?.data?.data.questions);
+        }
+      } catch (error) {
+        console.error("Failed to fetch quiz data:", error);
+      }
+    };
+    getLeaderBoardData();
+  }, [id]);
+
   return (
     <div className="bg-[#F5F3FF]  p-4">
-      <header className="flex justify-between items-center">
-        <img src={logo} className="h-7" />
-        <div>
-          <button
-            className="px-4 py-2 rounded hover:bg-primary hover:text-white transition-colors"
-            style={{fontFamily: "Jaro"}}
-          >
-            Login
-          </button>
-
-          <button
-            className="px-4 py-2 rounded hover:bg-primary hover:text-white transition-colors"
-            style={{fontFamily: "Jaro"}}
-          >
-            Logout
-          </button>
-        </div>
-      </header>
-
       <main className="min-h-[calc(100vh-50px)] flex items-center justify-center">
         <div className="bg-white rounded-lg shadow-lg w-full max-w-4xl overflow-hidden">
           <div className="p-6 md:p-8 grid grid-cols-1 md:grid-cols-2 gap-8">

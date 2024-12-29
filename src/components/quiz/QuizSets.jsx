@@ -3,13 +3,11 @@ import bg5 from "../../assets/backgrounds/5.jpg";
 import bg1 from "../../assets/backgrounds/1.jpeg";
 import bg3 from "../../assets/backgrounds/3.jpg";
 
-import { useQuiz } from "../../hooks/useQuiz";
+
 import QuizCard from "./QuizCard";
 
-function Quiz() {
-  const { quizzes } = useQuiz();
-
-//   console.log(quizzes);
+function QuizSets({ quizSets }) {
+  //   console.log(quizSets);
 
   return (
     <main className="bg-white p-6 rounded-md h-full">
@@ -17,10 +15,10 @@ function Quiz() {
         <h3 className="text-2xl font-bold mb-6">Participate In Quizees</h3>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {quizzes?.length > 0 ? (
-            quizzes.map((item) => <QuizCard quiz={item} key={item.id} />)
+          {quizSets?.length > 0 ? (
+            quizSets.map((item) => <QuizCard quiz={item} key={item.id} />)
           ) : (
-            <p>No quizzes available.</p>
+            <p>No quizSets available.</p>
           )}
 
           {/* <a
@@ -32,7 +30,7 @@ function Quiz() {
                 JavaScript Basic Quiz
               </h1>
               <p className="mt-2 text-lg">
-                Test your knowledge of JavaScript basics with quizzes that cover
+                Test your knowledge of JavaScript basics with quizSets that cover
                 essential concepts, syntax, and foundational programming skills
               </p>
             </div>
@@ -58,7 +56,7 @@ function Quiz() {
                 JavaScript Basic Quiz
               </h1>
               <p className="mt-2 text-lg">
-                Test your knowledge of JavaScript basics with quizzes that cover
+                Test your knowledge of JavaScript basics with quizSets that cover
                 essential concepts, syntax, and foundational programming skills
               </p>
             </div>
@@ -75,7 +73,7 @@ function Quiz() {
                 JavaScript Basic Quiz
               </h1>
               <p className="mt-2 text-lg">
-                Test your knowledge of JavaScript basics with quizzes that cover
+                Test your knowledge of JavaScript basics with quizSets that cover
                 essential concepts, syntax, and foundational programming skills
               </p>
             </div>
@@ -92,7 +90,7 @@ function Quiz() {
                 JavaScript Basic Quiz
               </h1>
               <p className="mt-2 text-lg">
-                Test your knowledge of JavaScript basics with quizzes that cover
+                Test your knowledge of JavaScript basics with quizSets that cover
                 essential concepts, syntax, and foundational programming skills
               </p>
             </div>
@@ -114,4 +112,4 @@ function Quiz() {
   );
 }
 
-export default Quiz;
+export default QuizSets;

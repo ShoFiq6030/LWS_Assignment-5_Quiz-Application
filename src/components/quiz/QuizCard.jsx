@@ -11,6 +11,7 @@ function QuizCard({ quiz }) {
       navigate(`/quiz_page/${id}`); // Navigate to the quiz page with the quiz ID
     } else {
       navigate(`/leaderboard/${id}`); // Navigate to the leaderboard page with the quiz ID
+      // navigate(`/result`); // Navigate to the leaderboard page with the quiz ID
     }
   };
 

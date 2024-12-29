@@ -5,6 +5,7 @@ import "./index.css";
 import App from "./App.jsx";
 import { ToastContainer } from "react-toastify";
 import AuthProvider from "./provider/AuthProvider.jsx";
+import 'react-circular-progressbar/dist/styles.css';
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>

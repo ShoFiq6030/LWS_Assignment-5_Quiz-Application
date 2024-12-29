@@ -1,12 +1,22 @@
 import React, { useEffect, useState } from "react";
-
 import { useApi } from "../../hooks/useApi";
+import { toast } from "react-toastify";
+import { useResult } from "../../hooks/useresult";
+import { useNavigate } from "react-router-dom";
 
-function Questions({ quizData, quizId }) {
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+function Questions({
+  questions,
+  quizId,
+  handleOptionChange,
+  handleNext,
+  currentQuestionIndex,
+  selectedAnswers,
+}) {
   const [shuffledOptions, setShuffledOptions] = useState([]);
-  const [selectedAnswers, setSelectedAnswers] = useState({});
+
   const { api } = useApi();
+  const { setResult } = useResult();
+  const navigate = useNavigate();
 
   const shuffleArray = (array) => {
     const shuffled = [...array];
@@ -17,34 +27,28 @@ function Questions({ quizData, quizId }) {
     return shuffled;
   };
 
-  const currentQuestion = quizData[currentQuestionIndex];
+  const currentQuestion = questions[currentQuestionIndex];
 
   useEffect(() => {
     setShuffledOptions(shuffleArray(currentQuestion.options));
   }, [currentQuestion]);
 
-  const handleOptionChange = (questionId, option) => {
-    setSelectedAnswers((prevAnswers) => ({
-      ...prevAnswers,
-      [questionId]: option,
-    }));
-  };
+  // const handleOptionChange = (questionId, option) => {
+  //   setSelectedAnswers((prevAnswers) => ({
+  //     ...prevAnswers,
+  //     [questionId]: option,
+  //   }));
+  // };
 
-  const handleNext = () => {
-    if (currentQuestionIndex < quizData.length - 1) {
-      setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
-    } else {
-      alert("You have reached the end of the quiz!");
-    }
-  };
+  // const handleNext = () => {
+  //   if (currentQuestionIndex < questions.length - 1) {
+  //     setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+  //   } else {
+  //     alert("You have reached the end of the quiz!");
+  //   }
+  // };
 
   const handleSubmit = () => {
-    // console.log(selectedAnswers);
-    // const answers = {};
-    // quizData.forEach((question) => {
-    //   answers[question.id] = selectedAnswers[question.id];
-    // });
-
     const data = {
       answers: selectedAnswers,
     };
@@ -58,6 +62,15 @@ function Questions({ quizData, quizId }) {
           data
         );
         console.log(response);
+        if (response.status === 200) {
+          toast.success("Quiz submitted successfully!");
+          const quiz = response.data.data.quiz;
+          const submitted_answers = response.data.data.submitted_answers;
+          const correct_answers = response.data.data.correct_answers;
+          const percentage = response.data.data.percentage;
+          setResult({ quiz, submitted_answers, correct_answers, percentage });
+          navigate("/result");
+        }
       } catch (error) {
         console.error(error);
       }
@@ -92,17 +105,27 @@ function Questions({ quizData, quizId }) {
           ))}
         </div>
         <div className="flex justify-between mt-4">
-          {currentQuestionIndex < quizData.length - 1 ? (
+          {currentQuestionIndex < questions.length - 1 ? (
             <button
               onClick={handleNext}
-              className="w-1/2 text-center ml-auto bg-primary text-white py-2 px-4 rounded-md hover:bg-indigo-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary font-semibold"
+              className={`w-1/2 text-center ml-auto text-white py-2 px-4 rounded-md hover:bg-indigo-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary font-semibold ${
+                !selectedAnswers[currentQuestion.id]
+                  ? "bg-gray-300  cursor-not-allowed pointer-events-none"
+                  : "bg-primary"
+              }`}
+              disabled={!selectedAnswers[currentQuestion.id]}
             >
               Next
             </button>
           ) : (
             <button
               onClick={handleSubmit}
-              className="w-1/2 text-center ml-auto bg-primary text-white py-2 px-4 rounded-md hover:bg-indigo-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary font-semibold"
+              className={`w-1/2 text-center ml-auto  text-white py-2 px-4 rounded-md hover:bg-indigo-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary font-semibold ${
+                !selectedAnswers[currentQuestion.id]
+                  ? "bg-gray-300 opacity-50 cursor-not-allowed pointer-events-none"
+                  : "bg-primary"
+              }`}
+              disabled={!selectedAnswers[currentQuestion.id]}
             >
               Submit
             </button>
