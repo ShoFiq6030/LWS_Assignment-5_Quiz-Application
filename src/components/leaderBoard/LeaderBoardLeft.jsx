@@ -7,7 +7,7 @@ function LeaderBoardLeft({userMarkInfo}) {
     const user=auth?.user
 
     const userInfo = userMarkInfo?.find((aUser)=>aUser?.user?.id===user?.id   )
-    console.log(userInfo);
+    // console.log(userInfo);
 
 
   return (

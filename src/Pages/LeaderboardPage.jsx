@@ -13,7 +13,7 @@ function LeaderboardPage() {
   const { api } = useApi();
 
   const attempts = leaderBoardData?.attempts;
-  const quizData=leaderBoardData?.quiz
+  const quizData = leaderBoardData?.quiz;
 
   const userMarkInfo = attempts
     ?.map((attempt) => {
@@ -46,11 +46,17 @@ function LeaderboardPage() {
     })
     ?.sort((a, b) => b.totalMark - a.totalMark) // Sort by total marks (highest first)
     ?.map((user, index, sortedArray) => {
-      // Add position field, considering ties
-      const position =
-        index > 0 && user.totalMark === sortedArray[index - 1].totalMark
-          ? sortedArray[index - 1].position // Same position as the previous user if marks are equal
-          : index + 1; // Otherwise, the position is the current index + 1
+      let position;
+      if (index === 0) {
+        // For the first user
+        position = 1;
+      } else if (user.totalMark === sortedArray[index - 1].totalMark) {
+        // Compare with the previous user
+        position = sortedArray[index - 1].position; // Same position as the previous user if marks are equal
+      } else {
+        // Otherwise, the position is the current index + 1
+        position = index + 1;
+      }
 
       return {
         ...user,
@@ -58,7 +64,7 @@ function LeaderboardPage() {
       };
     });
 
-  console.log(userMarkInfo);
+  // console.log(userMarkInfo);
 
   useEffect(() => {
     const getLeaderBoardData = async () => {
@@ -67,7 +73,7 @@ function LeaderboardPage() {
           `${import.meta.env.VITE_SERVER_URL}/api/quizzes/${id}/attempts`
         );
 
-        console.log(response);
+        // console.log(response);
         if (response.status === 200) {
           setLeaderBoardData(response?.data?.data);
         }
@@ -78,7 +84,7 @@ function LeaderboardPage() {
     getLeaderBoardData();
   }, [id]);
 
-  console.log(leaderBoardData);
+  // console.log(leaderBoardData);
   return (
     <div className="bg-[#F5F3FF]  p-4">
       <main className="min-h-[calc(100vh-50px)] flex items-center justify-center">

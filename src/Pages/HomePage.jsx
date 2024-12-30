@@ -9,7 +9,6 @@ function HomePage() {
   const [quizSets, setQuizSets] = useState(null);
   const { auth } = useAuth();
   const { api } = useApi();
- 
 
   useEffect(() => {
     const getQuizzes = async () => {

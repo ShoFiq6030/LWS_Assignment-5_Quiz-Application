@@ -18,7 +18,7 @@ function PrivateRoutes() {
     <>
       {auth.user ? (
         <div className="bg-[#F5F3FF] min-h-screen">
-          <div className="">
+          <div className="container mx-auto py-3">
             <QuestionsProvider>
               <ResultProvider>
                 {!shouldHideHeaderFooter && <Header />}

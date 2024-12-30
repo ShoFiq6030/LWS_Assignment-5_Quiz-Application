@@ -18,8 +18,8 @@ function App() {
         <Route element={<PrivateRoutes />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/quiz_page/:id" element={<QuizPage />} />
-          <Route path="/result" element={<ResultPage />} />
           <Route path="/leaderboard/:id" element={<LeaderboardPage />} />
+          <Route path="/result" element={<ResultPage />} />
         </Route>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/registration" element={<RegistrationPage />} />
