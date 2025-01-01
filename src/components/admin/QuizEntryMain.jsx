@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import ArrowSvg from "./../svg/ArrowSvg";
 import { useAddQuiz } from "../../hooks/useAddQuiz";
-import AddQuestionLeft from "../addQuiz/AddQuestionLeft";
+import AddUpdateQuestion from "../addQuiz/AddUpdateQuestion";
 import AddQuestionRight from "../addQuiz/AddQuestionRight";
 import { useApi } from "../../hooks/useApi";
 
@@ -47,10 +47,16 @@ function QuizEntryMain() {
       const response = await api.post(
         `${
           import.meta.env.VITE_SERVER_URL
-        }api/admin/quizzes/${quizId}/questions`
+        }/api/admin/quizzes/${quizId}/questions`,
+        questionData
       );
       console.log(response.data);
       // setQuestions(response.data);
+      setQuestionData({
+        question: "",
+        options: ["", "", "", ""],
+        correctAnswer: "0",
+      });
     } catch (err) {
       console.log(err);
     }
@@ -86,7 +92,7 @@ function QuizEntryMain() {
         </nav>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 md:gap-8 lg:gap-12">
-          <AddQuestionLeft
+          <AddUpdateQuestion
             questionData={questionData}
             handleTextChange={handleTextChange}
             handleAdd={handleAdd}

@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function AddQuestionLeft({
+export default function AddUpdateQuestion({
   questionData,
   handleAdd,
   handleTextChange,
