@@ -5,14 +5,17 @@ import "./index.css";
 import App from "./App.jsx";
 import { ToastContainer } from "react-toastify";
 import AuthProvider from "./provider/AuthProvider.jsx";
-import 'react-circular-progressbar/dist/styles.css';
+import "react-circular-progressbar/dist/styles.css";
+import AddQuizProvider from "./provider/AddquizProvider.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <Router>
       <AuthProvider>
-        <App />
-        <ToastContainer />
+        <AddQuizProvider>
+          <App />
+          <ToastContainer />
+        </AddQuizProvider>
       </AuthProvider>
     </Router>
   </StrictMode>

@@ -1,9 +1,15 @@
-import React from 'react'
+import React from "react";
+import DashboardSideBar from "../../components/admin/DashboardSideBar";
+import CreateQuizMain from "../../components/admin/CreateQuizMain";
 
 function QuizSetPage() {
+  
   return (
-    <div>QuizSetPage</div>
-  )
+    <div className="bg-[#F5F3FF] min-h-screen flex">
+      <DashboardSideBar/>
+      <CreateQuizMain/>
+    </div>
+  );
 }
 
-export default QuizSetPage
+export default QuizSetPage;

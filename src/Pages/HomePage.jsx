@@ -4,18 +4,31 @@ import { useAuth } from "./../hooks/useAuth";
 import { useApi } from "../hooks/useApi";
 
 import QuizSets from "../components/quiz/QuizSets";
+import { useNavigate } from "react-router-dom";
 
 function HomePage() {
   const [quizSets, setQuizSets] = useState(null);
   const { auth } = useAuth();
   const { api } = useApi();
+  const navigate  = useNavigate();
+
+  const userRole =auth?.user?.role
+  console.log(userRole);
 
   useEffect(() => {
     const getQuizzes = async () => {
-      const response = await api.get(
-        `${import.meta.env.VITE_SERVER_URL}/api/quizzes`
-      );
-      setQuizSets(response.data.data);
+      if (!userRole || userRole === "admin") {
+        navigate("/dashboard");
+        return;
+      }
+      try {
+        const response = await api.get(
+          `${import.meta.env.VITE_SERVER_URL}/api/quizzes`
+        );
+        setQuizSets(response.data.data);
+      } catch (err) {
+        console.error("Failed to fetch quiz data:", err);
+      }
     };
     getQuizzes();
   }, []);

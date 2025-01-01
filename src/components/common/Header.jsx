@@ -11,6 +11,7 @@ function Header() {
     setAuth({});
     navigate("/login");
   };
+  console.log(auth);
 
   return (
     <header className="flex justify-between items-center mb-12 cursor-pointer ">
