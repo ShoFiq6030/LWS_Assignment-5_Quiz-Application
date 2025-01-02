@@ -1,11 +1,16 @@
 import React from "react";
+import { useApi } from "../../hooks/useApi";
 
 function CreateAndUpdateForm({
   handleNextClick,
   quizDetails,
   setQuizDetails,
   isEdit,
+  handleDeleteClick,
 }) {
+  
+
+  
   return (
     <form onSubmit={handleNextClick}>
       <div className="mb-4">
@@ -51,6 +56,7 @@ function CreateAndUpdateForm({
         ></textarea>
       </div>
       {isEdit && (
+        <div className="flex justify-between items-center">
         <div className="mb-6">
           <input
             type="checkbox"
@@ -60,13 +66,22 @@ function CreateAndUpdateForm({
             onChange={(e) =>
               setQuizDetails({
                 ...quizDetails,
-                publish: e.target.checked,
+                status: e.target.checked ? "published" : "draft",
               })
             }
+            checked={quizDetails.status==="published"}
           />
           <label htmlFor="publish" className="m-1">
             Publish
           </label>
+        </div>
+        <div>
+          <button 
+            type="button"
+            className="text-red-600 mb-6"
+            onClick={handleDeleteClick}
+          >Delete</button>
+        </div>
         </div>
       )}
 

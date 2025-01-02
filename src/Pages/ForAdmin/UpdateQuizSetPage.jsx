@@ -25,16 +25,30 @@ function UpdateQuizSetPage() {
     setQuizDetails({
       title: quiz.title,
       description: quiz.description,
+      status: quiz.status,
     });
   }, [quizId]);
   const handleNextClick = async (e) => {
     e.preventDefault();
     console.log(quizDetails);
-    const response = await api.patch(`${import.meta.env.VITE_SERVER_URL}/api/admin/quizzes/${quizId}`, quizDetails);
+    const response = await api.patch(
+      `${import.meta.env.VITE_SERVER_URL}/api/admin/quizzes/${quizId}`,
+      quizDetails
+    );
     if (response.status === 200) {
       toast.success("Quiz updated successfully");
-      navigate(`/quiz_set_entry_page/${quizId}`)
-      
+      navigate(`/quiz_set_entry_page/${quizId}`);
+    }
+  };
+  const handleDeleteClick = async () => {
+    if (window.confirm("Are you sure you want to delete this quiz?")) {
+      const response = await api.delete(
+        `${import.meta.env.VITE_SERVER_URL}/api/admin/quizzes/${quizId}`
+      );
+      if (response.status === 200) {
+        toast.success("Quiz deleted successfully");
+        navigate("/dashboard");
+      }
     }
   };
 
@@ -63,6 +77,7 @@ function UpdateQuizSetPage() {
                 quizDetails={quizDetails}
                 setQuizDetails={setQuizDetails}
                 isEdit={isEdit}
+                handleDeleteClick={handleDeleteClick}
               />
             </div>
           </div>
