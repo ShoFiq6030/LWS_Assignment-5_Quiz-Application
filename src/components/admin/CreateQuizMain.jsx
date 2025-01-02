@@ -7,7 +7,7 @@ import CreateAndUpdateForm from "./CreateAndUpdateForm";
 
 function CreateQuizMain() {
   const { api } = useApi();
-  const { setAddQuiz } = useAddQuiz();
+  const [ addQuiz,setAddQuiz ] = useState({});
   const [redirect, setRedirect] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
 
@@ -36,7 +36,8 @@ function CreateQuizMain() {
   };
 
   if (redirect) {
-    return <Navigate to="/quiz_set_entry_page" />;
+    const quizId=addQuiz?.id
+    return <Navigate to={`/quiz_set_entry_page/${quizId}`} />;
   }
 
   return (

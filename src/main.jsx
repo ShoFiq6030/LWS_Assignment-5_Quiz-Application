@@ -7,14 +7,17 @@ import { ToastContainer } from "react-toastify";
 import AuthProvider from "./provider/AuthProvider.jsx";
 import "react-circular-progressbar/dist/styles.css";
 import AddQuizProvider from "./provider/AddquizProvider.jsx";
+import AllQuizDetailsProvider from "./provider/AllQuizDetailsProvider.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <Router>
       <AuthProvider>
         <AddQuizProvider>
+          <AllQuizDetailsProvider>
           <App />
           <ToastContainer />
+          </AllQuizDetailsProvider>
         </AddQuizProvider>
       </AuthProvider>
     </Router>

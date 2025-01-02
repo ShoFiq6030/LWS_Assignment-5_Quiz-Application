@@ -27,7 +27,8 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/quiz_set_page/" element={<QuizSetPage />} />
         <Route path="/quiz_set_page/:id" element={<UpdateQuizSetPage/>} />
-        <Route path="/quiz_set_entry_page" element={<QuizSetEntryPage />} />
+        <Route path="/quiz_set_entry_page/:id" element={<QuizSetEntryPage />} />
+        
         <Route path="*" element={<NoFoundPage />} />
       </Routes>
     </>
