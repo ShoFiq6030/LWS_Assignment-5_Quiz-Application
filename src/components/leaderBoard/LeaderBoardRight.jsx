@@ -5,7 +5,7 @@ import { useAuth } from "../../hooks/useAuth";
 function LeaderBoardRight({ userMarkInfo, quizData }) {
     const {auth}=useAuth()
     const user= auth?.user
-    console.log(userMarkInfo);
+    
   return (
     <div>
       <h1 className="text-2xl font-bold">Leaderboard</h1>

@@ -4,12 +4,13 @@ import QuizEntryMain from "../../components/admin/QuizEntryMain";
 import { useParams } from "react-router-dom";
 
 function QuizSetEntryPage() {
-  const {id:quizId} =useParams()
+  const {id} =useParams()
+  console.log(id)
   
   return (
     <div className="bg-[#F5F3FF] min-h-screen flex">
       <DashboardSideBar />
-      <QuizEntryMain quizId={quizId} />
+      <QuizEntryMain quizId={id} />
     </div>
   );
 }

@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
 import BackSvg from "./../svg/BackSvg";
-import { Link, Navigate, useParams } from "react-router-dom";
+import { Link, Navigate, useParams, useNavigate } from "react-router-dom";
 import { useApi } from "../../hooks/useApi";
 import { useAddQuiz } from "../../hooks/useAddQuiz";
 import CreateAndUpdateForm from "./CreateAndUpdateForm";
 
 function CreateQuizMain() {
   const { api } = useApi();
-  const [ addQuiz,setAddQuiz ] = useState({});
-  const [redirect, setRedirect] = useState(false);
-  const [isEdit, setIsEdit] = useState(false);
+
+  const navigate = useNavigate();
 
   const [quizDetails, setQuizDetails] = useState({
     title: "",
@@ -24,21 +23,17 @@ function CreateQuizMain() {
         `${import.meta.env.VITE_SERVER_URL}/api/admin/quizzes`,
         quizDetails
       );
-      setAddQuiz(response.data.data);
+      console.log(response.data.data);
+      const quizId = response.data.data.id;
+      if (quizId) {
+        navigate(`/quiz_set_entry_page/${quizId}`);
+      }
     } catch (e) {
       console.log(e);
+    } finally {
+      setQuizDetails({ title: "", description: "" });
     }
-    setRedirect(true);
-    setQuizDetails({
-      title: "",
-      description: "",
-    });
   };
-
-  if (redirect) {
-    const quizId=addQuiz?.id
-    return <Navigate to={`/quiz_set_entry_page/${quizId}`} />;
-  }
 
   return (
     <main className="md:flex-grow px-4 sm:px-6 lg:px-8 py-8">
@@ -46,7 +41,6 @@ function CreateQuizMain() {
         <div>
           <Link
             to={"/dashboard"}
-            href="#"
             className="inline-flex items-center text-sm text-gray-600 mb-6 hover:text-buzzr-purple"
           >
             <BackSvg />
@@ -57,8 +51,11 @@ function CreateQuizMain() {
             Give your quiz title and description
           </h2>
 
-          <CreateAndUpdateForm handleNextClick={handleNextClick} quizDetails={quizDetails} setQuizDetails={setQuizDetails}
-          isEdit={isEdit}
+          <CreateAndUpdateForm
+            handleNextClick={handleNextClick}
+            quizDetails={quizDetails}
+            setQuizDetails={setQuizDetails}
+            isEdit={false}
           />
         </div>
       </div>

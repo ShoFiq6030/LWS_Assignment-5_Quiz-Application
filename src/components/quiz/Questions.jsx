@@ -53,7 +53,7 @@ function Questions({
       answers: selectedAnswers,
     };
 
-    console.log(data);
+    
 
     const postQuestions = async () => {
       try {
@@ -61,7 +61,7 @@ function Questions({
           `${import.meta.env.VITE_SERVER_URL}/api/quizzes/${quizId}/attempt`,
           data
         );
-        console.log(response);
+       
         if (response.status === 200) {
           toast.success("Quiz submitted successfully!");
           const quiz = response.data.data.quiz;

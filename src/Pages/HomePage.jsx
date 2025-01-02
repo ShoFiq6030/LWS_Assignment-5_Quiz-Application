@@ -13,7 +13,7 @@ function HomePage() {
   const navigate  = useNavigate();
 
   const userRole =auth?.user?.role
-  console.log(userRole);
+  
 
   useEffect(() => {
     const getQuizzes = async () => {

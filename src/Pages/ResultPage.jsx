@@ -10,8 +10,7 @@ import ResultComponent from "../components/result/ResultComponent";
 function ResultPage() {
   const { result,quiz } = useResult();
   const { questions } = useQuestions();
-  console.log(result);
-  console.log(questions);
+  
 
   if (!result || !questions) {
     return <p>Loading......</p>;

@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 function ResultMark({ result, userCorrectAnswers, questions,quiz }) {
   let percentage = result?.percentage;
+  const quizId= result?.quiz?.id
   
 
   const userMarks = userCorrectAnswers?.map((ans) => ans?.marks)?.reduce((total, currentValue) => {
@@ -21,7 +22,7 @@ function ResultMark({ result, userCorrectAnswers, questions,quiz }) {
             <div>
               <h2 className="text-4xl font-bold mb-2">{result?.quiz?.title}</h2>
               <p>
-                A quiz on React hooks like useState, useEffect, and useContext.
+                
               </p>
             </div>
             <div className="my-6 flex items-center">
@@ -47,7 +48,7 @@ function ResultMark({ result, userCorrectAnswers, questions,quiz }) {
                   </div>
                 </div>
                 <Link
-                  to={"/leaderboard/"}
+                  to={`/leaderboard/${quizId}`}
                   className="bg-secondary py-3 rounded-md hover:bg-secondary/90 transition-colors text-lg font-medium underline text-white"
                 >
                   View Leaderboard
