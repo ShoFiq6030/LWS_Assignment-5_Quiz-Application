@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useApi } from "../../hooks/useApi";
 import { toast } from "react-toastify";
-import { useResult } from "../../hooks/useresult";
+import { useResult } from "../../hooks/useResult";
 import { useNavigate } from "react-router-dom";
 
 function Questions({

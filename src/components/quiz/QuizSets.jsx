@@ -1,7 +1,4 @@
-import bg2 from "../../assets/backgrounds/2.jpg";
-import bg5 from "../../assets/backgrounds/5.jpg";
-import bg1 from "../../assets/backgrounds/1.jpeg";
-import bg3 from "../../assets/backgrounds/3.jpg";
+
 
 
 import QuizCard from "./QuizCard";

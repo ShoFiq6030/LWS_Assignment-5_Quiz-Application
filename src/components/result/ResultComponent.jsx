@@ -1,5 +1,5 @@
 import React from "react";
-import ResultMark from "./Resultmark";
+import ResultMark from "./ResultMark";
 import ResultQuestions from "./ResultQuestions";
 
 function ResultComponent({ result, questions,quiz }) {
