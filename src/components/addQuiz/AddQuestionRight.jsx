@@ -6,7 +6,7 @@ function AddQuestionRight({
   handleDeleteQuestion,
   handleEditQuestion,
 }) {
-  console.log(questions);
+  
 
   return (
     <div className="px-4">
@@ -56,6 +56,7 @@ function AddQuestionRight({
           </div>
         </div>
       ))}
+      
     </div>
   );
 }

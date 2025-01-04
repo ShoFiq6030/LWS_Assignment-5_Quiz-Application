@@ -22,7 +22,7 @@ function Dashboard() {
           `${import.meta.env.VITE_SERVER_URL}/api/admin/quizzes`
         );
 
-        console.log(response);
+        
         setAllQuizDetails(response.data);
       } catch (err) {
         console.error("Failed to fetch quiz data:", err);

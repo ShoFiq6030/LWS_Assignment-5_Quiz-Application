@@ -17,17 +17,13 @@ function PrivateRoutes() {
   return (
     <>
       {auth.user ? (
-        <div className="bg-[#F5F3FF] min-h-screen">
-          <div className="container mx-auto py-3">
-            <QuestionsProvider>
-              <ResultProvider>
-                {!shouldHideHeaderFooter && <Header />}
-                <Outlet />
-                {!shouldHideHeaderFooter && <Footer />}
-              </ResultProvider>
-            </QuestionsProvider>
-          </div>
-        </div>
+        <QuestionsProvider>
+          <ResultProvider>
+            {!shouldHideHeaderFooter && <Header />}
+            <Outlet />
+            {!shouldHideHeaderFooter && <Footer />}
+          </ResultProvider>
+        </QuestionsProvider>
       ) : (
         <Navigate to="/login" />
       )}

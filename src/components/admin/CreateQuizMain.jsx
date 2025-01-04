@@ -17,19 +17,18 @@ function CreateQuizMain() {
 
   const handleNextClick = async (e) => {
     e.preventDefault();
-    console.log(quizDetails);
+
     try {
       const response = await api.post(
         `${import.meta.env.VITE_SERVER_URL}/api/admin/quizzes`,
         quizDetails
       );
-      console.log(response.data.data);
+
       const quizId = response.data.data.id;
       if (quizId) {
         navigate(`/quiz_set_entry_page/${quizId}`);
       }
     } catch (e) {
-      console.log(e);
     } finally {
       setQuizDetails({ title: "", description: "" });
     }

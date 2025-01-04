@@ -19,13 +19,16 @@ function QuizEntryMain({ quizId }) {
   });
   const [questions, setQuestions] = useState([]);
   const [editingQuestionId, setEditingQuestionId] = useState(null);
+  const [quizDetails,setQuizDetails]=useState(null)
 
   useEffect(() => {
     if (!quizId || !allQuizDetails?.length) return;
 
     const quiz = allQuizDetails?.find((quiz) => quiz.id === quizId);
     if (quiz) {
+      
       setQuestions(quiz?.Questions);
+      setQuizDetails(quiz)
     }
   }, [quizId, allQuizDetails]);
 
@@ -170,6 +173,7 @@ function QuizEntryMain({ quizId }) {
             handleOptionChange={handleOptionChange}
             handleDeleteQuestion={handleDeleteQuestion}
             questions={questions}
+            quizDetails={quizDetails}
           />
           {questions?.length > 0 && (
             <AddQuestionRight

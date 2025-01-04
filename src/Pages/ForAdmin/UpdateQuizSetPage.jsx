@@ -30,7 +30,7 @@ function UpdateQuizSetPage() {
   }, [quizId]);
   const handleNextClick = async (e) => {
     e.preventDefault();
-    console.log(quizDetails);
+    
     const response = await api.patch(
       `${import.meta.env.VITE_SERVER_URL}/api/admin/quizzes/${quizId}`,
       quizDetails

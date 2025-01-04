@@ -2,20 +2,19 @@ import { useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.svg";
 import { useAuth } from "../../hooks/useAuth";
 
-
 function Header() {
   const { auth, setAuth } = useAuth();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     setAuth({});
     navigate("/login");
   };
 
-
   return (
+    <div className="container mx-auto pt-5 h-20">
     <header className="flex justify-between items-center mb-12 cursor-pointer ">
-      <img onClick={()=>navigate("/")} src={logo} className="h-7" />
+      <img onClick={() => navigate("/")} src={logo} className="h-7" />
       <div>
         {auth.user ? (
           <button
@@ -35,6 +34,7 @@ function Header() {
         )}
       </div>
     </header>
+    </div>
   );
 }
 

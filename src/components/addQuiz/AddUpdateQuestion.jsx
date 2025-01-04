@@ -6,18 +6,18 @@ export default function AddUpdateQuestion({
   handleTextChange,
   handleCorrectAnswerChange,
   handleOptionChange,
-  questions
+  questions,
+  quizDetails,
 }) {
-  console.log(questionData);
+ 
   return (
     <div className="">
-      <h2 className="text-3xl font-bold mb-4">Binary Tree Quiz</h2>
+      <h2 className="text-3xl font-bold mb-4">{quizDetails?.title}</h2>
       <div className="bg-green-100 text-green-800 text-sm font-medium px-2.5 py-0.5 rounded-full inline-block mb-4">
         Total number of questions : {questions?.length}
       </div>
       <p className="text-gray-600 mb-4">
-        Test understanding of binary tree traversal methods, tree properties,
-        and algorithms.
+        {quizDetails?.description}
       </p>
 
       <div className="space-y-4">
@@ -57,7 +57,7 @@ export default function AddUpdateQuestion({
                 className="text-primary focus:ring-0 w-4 h-4"
                 checked={questionData.correctAnswer === option}
                 onChange={(e) => handleCorrectAnswerChange(e, option)}
-                disabled={option===""}
+                disabled={option === ""}
               />
               <label htmlFor={`option${index}`} className="sr-only">
                 Option {index + 1}
@@ -69,12 +69,15 @@ export default function AddUpdateQuestion({
                 placeholder={`Option ${index + 1}`}
                 onChange={(e) => handleOptionChange(index, e.target.value)}
                 value={option}
-                
               />
             </div>
           ))}
         </div>
-        {questionData.correctAnswer === "0" && <p className="text-red-400 pl-2">select a checkbox for correct answer</p>}
+        {questionData.correctAnswer === "0" && (
+          <p className="text-red-400 pl-2">
+            select a checkbox for correct answer
+          </p>
+        )}
         <button
           className={`w-full   ${
             questionData.question.trim() === "" ||
@@ -92,9 +95,10 @@ export default function AddUpdateQuestion({
             questionData.correctAnswer === "0"
           }
         >
-          Save Quiz
+          {questionData.question.trim() === ""
+            ? "Add Question"
+            : "Update Question"}
         </button>
-
       </div>
     </div>
   );

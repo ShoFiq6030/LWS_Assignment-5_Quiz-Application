@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useApi } from "../hooks/useApi";
 import { useQuestions } from "./../hooks/useQuestions";
-import QuestionComponent from './../components/quiz/QuestionComponent';
+import QuestionComponent from "./../components/quiz/QuestionComponent";
 
 function QuizPage() {
   const { questions, setQuestions } = useQuestions();
@@ -17,7 +17,6 @@ function QuizPage() {
         const response = await api.get(
           `${import.meta.env.VITE_SERVER_URL}/api/quizzes/${id}`
         );
-
 
         // console.log(response.data.data.questions);
         if (response.status === 200) {
@@ -37,11 +36,15 @@ function QuizPage() {
   }
 
   return (
-    <main className="max-w-8xl mx-auto h-[calc(100vh-10rem)]">
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 h-full">
-        <QuestionComponent questions={questions} quizId={id} />
+    <div className="bg-[#F5F3FF] min-h-screen">
+      <div className="container mx-auto py-3">
+        <main className="max-w-8xl mx-auto h-[calc(100vh-10rem)]">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 h-full">
+            <QuestionComponent questions={questions} quizId={id} />
+          </div>
+        </main>
       </div>
-    </main>
+    </div>
   );
 }
 

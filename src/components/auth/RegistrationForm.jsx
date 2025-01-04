@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { ClipLoader } from "react-spinners";
 
 function RegistrationForm() {
   const [newUser, setNewUser] = useState({
@@ -88,7 +89,7 @@ function RegistrationForm() {
           error: "Registration failed 😢",
         }
       );
-      console.log(response.data);
+      
 
       setLoading(false);
       clearForm(); // Clear the form after successful registration
@@ -206,10 +207,10 @@ function RegistrationForm() {
         disabled={loading}
         type="submit"
         className={`w-full text-white py-3 rounded-lg mb-2 ${
-          loading ? "bg-gray-500" : "bg-primary"
+          loading ? "bg-gray-500" : "bg-primary hover:bg-violet-900"
         }`}
       >
-        {loading ? "Processing..." : "Create Account"}
+        {loading ? <ClipLoader size={20} color="#ffffff" /> : "Sign Up"}
       </button>
     </form>
   );

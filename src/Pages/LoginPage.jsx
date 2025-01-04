@@ -38,11 +38,11 @@ function LoginPage() {
             
             <LoginForm />
 
-            <div className="text-center">
+            {/* <div className="text-center">
               <a href="#" className="text-primary">
                 Forgot Password
               </a>
-            </div>
+            </div> */}
 
             <div className="mt-8">
               <p className="text-center">

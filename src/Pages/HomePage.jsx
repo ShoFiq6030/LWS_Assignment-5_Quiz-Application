@@ -10,10 +10,9 @@ function HomePage() {
   const [quizSets, setQuizSets] = useState(null);
   const { auth } = useAuth();
   const { api } = useApi();
-  const navigate  = useNavigate();
+  const navigate = useNavigate();
 
-  const userRole =auth?.user?.role
-  
+  const userRole = auth?.user?.role;
 
   useEffect(() => {
     const getQuizzes = async () => {
@@ -34,23 +33,25 @@ function HomePage() {
   }, []);
 
   return (
-    <>
-      <div className="text-center mb-12">
-        <img
-          src={avatar}
-          alt="Profile Picture"
-          className="w-32 h-32 rounded-full border-4 border-primary mx-auto mb-4 object-cover"
-        />
-        <p className="text-xl text-gray-600">Welcome</p>
-        <h2
-          className="text-4xl font-bold text-gray-700"
-          style={{ fontFamily: "Jaro" }}
-        >
-          {auth.user.full_name}
-        </h2>
+    <div className="bg-[#F5F3FF] min-h-screen">
+      <div className="container mx-auto py-3">
+        <div className="text-center mb-12">
+          <img
+            src={avatar}
+            alt="Profile Picture"
+            className="w-32 h-32 rounded-full border-4 border-primary mx-auto mb-4 object-cover"
+          />
+          <p className="text-xl text-gray-600">Welcome</p>
+          <h2
+            className="text-4xl font-bold text-gray-700"
+            style={{ fontFamily: "Jaro" }}
+          >
+            {auth.user.full_name}
+          </h2>
+        </div>
+        <QuizSets quizSets={quizSets} />
       </div>
-      <QuizSets quizSets={quizSets} />
-    </>
+    </div>
   );
 }
 

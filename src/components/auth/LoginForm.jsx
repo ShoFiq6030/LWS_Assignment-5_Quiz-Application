@@ -3,55 +3,74 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useAuth } from "../../hooks/useAuth";
+import { ClipLoader } from "react-spinners";
 
 function LoginForm() {
-  const [user, setUser] = useState({
-    email: "",
-    password: "",
-  });
+  const [user, setUser] = useState({ email: "", password: "" });
+  const [admin, setAdmin] = useState(false);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { setAuth } = useAuth();
 
   const handleFormSubmit = async (e) => {
-    setError(null);
     e.preventDefault();
+    setError(null);
+
     if (user.email === "" || user.password === "") {
       return toast.error("Please fill in all fields");
     }
-    // console.log(user);
+
+    // if (admin && !user.email.includes("admin")) {
+    //   // Prevent unnecessary API call for non-admin users
+    //   setError({ general: "Admin login credentials are required" });
+    //   return toast.error("Admin login credentials are required");
+    // }
+
     setLoading(true);
+
     try {
-      const response = await toast.promise(
-        axios.post(`${import.meta.env.VITE_SERVER_URL}/api/auth/login`, user),
-        {
-          pending: "Loading...",
-          success: "Login successful 🎉",
-          error: "Login failed !!!",
-        }
+      const response = await axios.post(
+        `${import.meta.env.VITE_SERVER_URL}/api/auth/login`,
+        user
       );
-      // console.log(response);
+
       setLoading(false);
+
       if (response.status === 200) {
         const { tokens, user } = response.data.data;
-        // console.log(tokens);
+
+        // Admin role validation
+        if (admin && user.role !== "admin") {
+          setError({ general: "You are not an admin" });
+          return toast.error("You are not an admin");
+        }
+        //User role validation
+        if (!admin && user.role !== "user") {
+          setError({ general: "You are not a user" });
+          return toast.error("You are not a user");
+        }
+
+        // Set authentication tokens and user data
         if (tokens) {
           const authToken = tokens.accessToken;
           const refreshToken = tokens.refreshToken;
-          console.log(`login time: ${tokens.accessToken}`);
+
           setAuth({ user, authToken, refreshToken });
+          setUser({ email: "", password: "" }); // Reset form
+          toast.success("Login successful 🎉");
           navigate("/");
         }
       }
     } catch (error) {
       setLoading(false);
-      console.log(error);
-      setError({
-        general: ` Login failed.....! ${error.response.data.message}`,
-      });
+      const errorMessage =
+        error.response?.data?.message || "Login failed. Please try again.";
+      setError({ general: errorMessage });
+      toast.error(`Login failed: ${errorMessage}`);
     }
   };
+
   return (
     <form onSubmit={handleFormSubmit}>
       <div className="mb-4">
@@ -87,8 +106,9 @@ function LoginForm() {
           type="checkbox"
           id="admin"
           className="px-4 py-3 rounded-lg border border-gray-300"
+          onChange={(e) => setAdmin(e.target.checked)}
         />
-        <label htmlFor="admin" className="block ">
+        <label htmlFor="admin" className="block">
           Login as Admin
         </label>
       </div>
@@ -96,11 +116,13 @@ function LoginForm() {
       <button
         disabled={loading}
         type="submit"
-        className={`w-full text-white py-3 rounded-lg mb-2 ${
-          loading ? "bg-gray-500" : "bg-primary"
+        className={`w-full text-white  py-3 rounded-lg mb-2 ${
+          loading
+            ? "bg-gray-500 cursor-not-allowed"
+            : "bg-primary hover:bg-violet-900"
         }`}
       >
-        {loading ? "Processing..." : "Sign In"}
+        {loading ? <ClipLoader size={20} color="#ffffff" /> : "Sign In"}
       </button>
     </form>
   );

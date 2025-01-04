@@ -52,9 +52,6 @@ function Questions({
     const data = {
       answers: selectedAnswers,
     };
-
-    
-
     const postQuestions = async () => {
       try {
         const response = await api.post(
@@ -71,8 +68,13 @@ function Questions({
           setResult({ quiz, submitted_answers, correct_answers, percentage });
           navigate("/result");
         }
+        if (response.status === 400) {
+          toast.error("Quiz submission failed!");
+        }
       } catch (error) {
         console.error(error);
+        toast.error(error.response.data.message);
+        navigate('/login')
       }
     };
 

@@ -20,13 +20,7 @@ function ResultPage() {
     <div className="bg-background text-foreground min-h-screen">
       <div className="flex min-h-screen overflow-hidden">
         <ResultComponent result={result} questions={questions} quiz={quiz} />
-        {/* <ResultMark
-          result={result}
-          userCorrectAnswers={userCorrectAnswers}
-          questions={questions}
-        />
-
-        <ResultQuestions result={result} questions={questions} /> */}
+       
       </div>
     </div>
   );
