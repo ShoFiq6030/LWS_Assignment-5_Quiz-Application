@@ -1,7 +1,7 @@
 import React from "react";
 import { useResult } from "../hooks/useResult";
 import { useQuestions } from "../hooks/useQuestions";
-import ResultMark from "../components/result/Resultmark";
+import ResultMark from "../components/result/ResultMark";
 import ResultQuestions from "../components/result/ResultQuestions";
 import ResultComponent from "../components/result/ResultComponent";
 
